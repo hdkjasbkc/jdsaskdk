@@ -27,15 +27,15 @@ PAGE_NO = 1
 PAGES = 0
 
 class MirrorStatus:
-    STATUS_UPLOADING = "Uploading"
-    STATUS_DOWNLOADING = "Downloading"
-    STATUS_CLONING = "Cloneing"
+    STATUS_UPLOADING = "Uploading...📤"
+    STATUS_DOWNLOADING = "Downloading...📥"
+    STATUS_CLONING = "Cloneing...♻️"
     STATUS_QUEUEDL = "QueueDl"
     STATUS_QUEUEUP = "QueueUl"
     STATUS_PAUSED = "Paused"
-    STATUS_ARCHIVING = "Archiving"
-    STATUS_EXTRACTING = "Extracting"
-    STATUS_SPLITTING = "Spliting"
+    STATUS_ARCHIVING = "Archiving...📦"
+    STATUS_EXTRACTING = "Extracting...🔧"
+    STATUS_SPLITTING = "Spliting...✂️"
     STATUS_CHECKING = "CheckUp"
     STATUS_SEEDING = "Seeding"
     STATUS_CONVERTING = "Converting"
@@ -139,24 +139,24 @@ def get_readable_message():
                 msg += f"Hey <b><i><u>{download.message.from_user.username}</u></i></b>, \
 Please wait!\n<b>{download.status()}</b> Your Task [<a href='{download.message.link}'>{download.mode}</a>]"
             else:
-                msg += f'\n<b>{download.status()}:</b> <code>{escape(str(download.name()))}</code>'
+                msg += f'\n<b>{download.status()}:</b> <b>{escape(str(download.name()))}</b>'
             if download.status() not in [MirrorStatus.STATUS_SEEDING, MirrorStatus.STATUS_CONVERTING, MirrorStatus.STATUS_PAUSED,
                                         MirrorStatus.STATUS_QUEUEDL, MirrorStatus.STATUS_QUEUEUP, MirrorStatus.STATUS_CHECKING]:
                 msg += f"\n{get_progress_bar_string(download)} {download.progress()}"
                 if download.status() == MirrorStatus.STATUS_DOWNLOADING:
-                    msg += f"\n<b>Downloaded:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
+                    msg += f"\n<b>Downloaded:</b> <b>{get_readable_file_size(download.processed_bytes())}</b> of <b>{download.size()}</b>"
                 elif download.status() == MirrorStatus.STATUS_UPLOADING:
-                    msg += f"\n<b>Uploaded:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
+                    msg += f"\n<b>Uploaded:</b> <b>{get_readable_file_size(download.processed_bytes())}</b> of <b>{download.size()}</b>"
                 elif download.status() == MirrorStatus.STATUS_CLONING:
-                    msg += f"\n<b>Cloned:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
+                    msg += f"\n<b>Cloned:</b> <b>{get_readable_file_size(download.processed_bytes())}</b> of <b>{download.size()}</b>"
                 elif download.status() == MirrorStatus.STATUS_ARCHIVING:
-                    msg += f"\n<b>Archived:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
+                    msg += f"\n<b>Archived:</b> <b>{get_readable_file_size(download.processed_bytes())}</b> of <b>{download.size()}</b>"
                 elif download.status() == MirrorStatus.STATUS_EXTRACTING:
-                    msg += f"\n<b>Extracted:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
+                    msg += f"\n<b>Extracted:</b> <b>{get_readable_file_size(download.processed_bytes())}</b> of <b>{download.size()}</b>"
                 elif download.status() == MirrorStatus.STATUS_SPLITTING:
-                    msg += f"\n<b>Splitted:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
-                msg += f"\n<b>Speed</b>: <code>{download.speed()}</code> | <b>Elapsed:</b> <code>{get_readable_time(time() - download.startTime)}</code>"
-                msg += f"\n<b>ETA</b>: <code>{download.eta()}</code> | <b>Eng</b>: <code>{download.engine}</code>"
+                    msg += f"\n<b>Splitted:</b> <b>{get_readable_file_size(download.processed_bytes())}</b> of <b>{download.size()}</b>"
+                msg += f"\n<b>Speed</b>: <b>{download.speed()}</b> | <b>Elapsed:</b> <b>{get_readable_time(time() - download.startTime)}</b>"
+                msg += f"\n<b>ETA</b>: <b>{download.eta()}</b> | <b>Eng</b>: <b>{download.engine}</b>"
                 if not config_dict['DM_MODE']:
                     msg += f"\n<b>Task</b>: <a href='{download.message.link}'>{download.mode}</a> | <b>By</b>: {download.source}"
                 if hasattr(download, 'seeders_num'):
@@ -178,7 +178,7 @@ Please wait!\n<b>{download.status()}</b> Your Task [<a href='{download.message.l
                         msg += f"\n<b>Playlist</b>: {playlist}"
                 except:
                     pass
-            msg += f"\n⚠️ <code>/{BotCommands.CancelMirror} {download.gid()}</code>\n\n"
+            msg += f"\n<code>/{BotCommands.CancelMirror} {download.gid()}</code>\n\n"
             if STATUS_LIMIT and index == STATUS_LIMIT:
                 break
         if len(msg) == 0:
